@@ -20,6 +20,7 @@ build_arch() {
         Sources/Views/*.swift \
         Sources/Utils/*.swift \
         -framework SwiftUI -framework AppKit -framework Security \
+        -framework CoreImage -framework AVFoundation -framework LocalAuthentication \
         -target ${3}-apple-macos13.0
 }
 
@@ -33,6 +34,9 @@ else
 fi
 
 cp Resources/Info.plist build/Mactokio.app/Contents/
-cp Resources/AppIcon.icns build/Mactokio.app/Contents/Resources/
+cp Resources/AppIcon.icns build/Mactokio.app/Contents/Resources/ 2>/dev/null || true
+
+# Sign with entitlements for Touch ID / Keychain access
+codesign --force --sign - --entitlements Resources/Mactokio.entitlements build/Mactokio.app
 
 echo "Done: build/Mactokio.app"
