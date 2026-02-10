@@ -108,7 +108,7 @@ struct MainView: View {
             headerRight: { importMenu },
             content: {
                 if appConfig.accounts.isEmpty {
-                    EmptyState("No accounts yet", icon: "lock.shield")
+                    EmptyState("No accounts yet", icon: "qrcode")
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 8) {
